@@ -1,0 +1,20 @@
+{
+  "name": "escrow-contract",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "ganache": "ganache-cli -m \"candy maple cake sugar pudding cream honey rich smooth crumble sweet treat\" --port 8544 --accounts 100 --networkId=9 --gasLimit=8000000 --defaultBalanceEther=100",
+    "test": "truffle test"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ganache-cli": "^6.10.1",
+    "openzeppelin-solidity": "^3.1.0",
+    "truffle": "^5.1.39"
+  },
+  "dependencies": {
+    "bignumber.js": "^9.0.0"
+  }
+}
