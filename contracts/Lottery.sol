@@ -1,5 +1,13 @@
 pragma solidity ^0.6.2;
 
+contract LotteryFactory {
+    event NewLottery(address lotteryAddress);
+    function newLottery(uint256 max, address payable taxman) public {
+        Lottery lottery = new Lottery(max, taxman);
+        emit NewLottery(address(lottery));
+    }
+}
+
 contract Lottery {
 
     struct Bet {
@@ -11,15 +19,20 @@ contract Lottery {
     Bet[] public bets;
 
     bool public closed;
-    uint256 maxBets = 0;
+    uint256 public maxBets = 0;
+    address payable public taxman;
+    address public creator;
     uint256 public winningNumber;
 
-    constructor(uint256 max) public {
+    constructor(uint256 max, address payable _taxman) public {
         maxBets = max;
+        taxman = _taxman;
+        creator = msg.sender;
     }
 
     function cashOut() public {
         require(msg.sender == winner(), "only the winner can cash out");
+        taxman.transfer(address(this).balance / 100);
         msg.sender.transfer(address(this).balance);
     }
 
